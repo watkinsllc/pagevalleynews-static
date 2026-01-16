@@ -9,18 +9,10 @@ type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export const generateMetadata = ({ params, searchParams }: PageProps): Promise<Metadata> =>
-  generatePageMetadata({
-    config,
-    params: Promise.resolve(params),
-    searchParams: Promise.resolve(searchParams),
-  })
+export const generateMetadata = ({ params, searchParams }: PageProps): Promise<Metadata> => {
+  return generatePageMetadata({ config, params, searchParams })
+}
 
-export default function Page({ params, searchParams }: PageProps) {
-  return NotFoundPage({
-    config,
-    params: Promise.resolve(params),
-    searchParams: Promise.resolve(searchParams),
-    importMap,
-  })
+export default function NotFound({ params, searchParams }: PageProps) {
+  return NotFoundPage({ config, params, searchParams, importMap })
 }
