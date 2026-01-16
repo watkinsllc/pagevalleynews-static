@@ -14,9 +14,18 @@ type Args = {
 }
 
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
-  generatePageMetadata({ config, params, searchParams })
+  generatePageMetadata({
+    config,
+    params: Promise.resolve(params),
+    searchParams: Promise.resolve(searchParams),
+  })
 
 const Page = ({ params, searchParams }: Args) =>
-  NotFoundPage({ config, params, searchParams, importMap })
+  NotFoundPage({
+    config,
+    params: Promise.resolve(params),
+    searchParams: Promise.resolve(searchParams),
+    importMap,
+  })
 
 export default Page

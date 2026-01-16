@@ -5,27 +5,27 @@ import { RootPage, generatePageMetadata } from '@payloadcms/next/views'
 import { importMap } from '../importMap'
 
 type Args = {
-  params: Promise<{
+  params: {
     segments?: string[]
-  }>
-  searchParams: Promise<{
+  }
+  searchParams: {
     [key: string]: string | string[] | undefined
-  }>
+  }
 }
 
-export const generateMetadata = async ({ params, searchParams }: Args): Promise<Metadata> => {
-  return generatePageMetadata({
+export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
+  generatePageMetadata({
     config,
-    params: await params,
-    searchParams: await searchParams,
+    params: Promise.resolve(params),
+    searchParams: Promise.resolve(searchParams),
   })
-}
 
-export default async function Page({ params, searchParams }: Args) {
-  return RootPage({
+const Page = ({ params, searchParams }: Args) =>
+  RootPage({
     config,
-    params: await params,
-    searchParams: await searchParams,
+    params: Promise.resolve(params),
+    searchParams: Promise.resolve(searchParams),
     importMap,
   })
-}
+
+export default Page
