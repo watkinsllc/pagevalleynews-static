@@ -1,8 +1,18 @@
-import { payloadHandler } from '@payloadcms/next/handlers'
-import config from '../../../../payload.config'
+import config from '@payload-config'
+import '@payloadcms/next/css'
 
-export const runtime = 'nodejs'
+import {
+  REST_DELETE,
+  REST_GET,
+  REST_OPTIONS,
+  REST_PATCH,
+  REST_POST,
+  REST_PUT,
+} from '@payloadcms/next/routes'
 
-export const { GET, POST, PUT, PATCH, DELETE } = payloadHandler({
-  config,
-})
+export const GET = REST_GET(config)
+export const POST = REST_POST(config)
+export const DELETE = REST_DELETE(config)
+export const PATCH = REST_PATCH(config)
+export const PUT = REST_PUT(config)
+export const OPTIONS = REST_OPTIONS(config)
