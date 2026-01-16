@@ -5,27 +5,18 @@ import { NotFoundPage, generatePageMetadata } from '@payloadcms/next/views'
 import { importMap } from '../importMap'
 
 type Args = {
-  params: Promise<{
+  params: {
     segments?: string[]
-  }>
-  searchParams: Promise<{
+  }
+  searchParams: {
     [key: string]: string | string[] | undefined
-  }>
+  }
 }
 
-export const generateMetadata = async ({ params, searchParams }: Args): Promise<Metadata> => {
-  return generatePageMetadata({
-    config,
-    params: await params,
-    searchParams: await searchParams,
-  })
-}
+export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
+  generatePageMetadata({ config, params, searchParams })
 
-export default async function NotFound({ params, searchParams }: Args) {
-  return NotFoundPage({
-    config,
-    params: await params,
-    searchParams: await searchParams,
-    importMap,
-  })
-}
+const Page = ({ params, searchParams }: Args) =>
+  NotFoundPage({ config, params, searchParams, importMap })
+
+export default Page
